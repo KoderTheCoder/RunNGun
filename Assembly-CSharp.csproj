@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Background.cs" />
+     <Compile Include="Assets\Scripts\bulletController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\CoinGenerator.cs" />
      <Compile Include="Assets\Scripts\DeathMenu.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\Scripts\PowerupManager.cs" />
      <Compile Include="Assets\Scripts\PowerUps.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\turretController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

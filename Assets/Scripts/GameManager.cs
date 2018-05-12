@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		thePlayer.transform.position = playerStartPoint;
+		thePlayer.dead = false;
 		platformGenerator.position = platformStartPoint;
 		thePlayer.gameObject.SetActive (true);
 		theScoreManager.scoreCount = 0;

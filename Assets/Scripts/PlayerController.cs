@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	public bool dead;
     public float moveSpeed;
 	private float moveSpeedStore;
 	public float speedMultiplier;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		dead = false;
         grounded = false;
         myRigidbody = GetComponent<Rigidbody2D>();
         //myCollider = GetComponent<Collider2D>();
@@ -52,46 +54,48 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        myRigidbody.velocity = new Vector2(moveSpeed, myRigidbody.velocity.y);
-        //grounded = Physics2D.IsTouchingLayers(myCollider, whatIsGround);
+			myRigidbody.velocity = new Vector2(moveSpeed, myRigidbody.velocity.y);
+			//grounded = Physics2D.IsTouchingLayers(myCollider, whatIsGround);
 
-		grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, whatIsGround);
+			grounded = Physics2D.OverlapCircle (groundCheck.position, groundCheckRadius, whatIsGround);
 
-		if(transform.position.x > speedMilestoneCount){
-			speedMilestoneCount += speedIncreaseMilestone;
-			moveSpeed = moveSpeed * speedMultiplier;
-			speedIncreaseMilestone = speedIncreaseMilestone*speedMultiplier;
-		}
-
-		if (Input.GetMouseButtonDown(0) && (grounded || canDoubleJump))
-        {
-			myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
-			stoppedJumping = false;
-			if(!grounded && canDoubleJump){
-				myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce*1.5f);
-				stoppedJumping = false;
-				canDoubleJump = false;
+			if(transform.position.x > speedMilestoneCount){
+				speedMilestoneCount += speedIncreaseMilestone;
+				moveSpeed = moveSpeed * speedMultiplier;
+				speedIncreaseMilestone = speedIncreaseMilestone*speedMultiplier;
 			}
-			jumpSound.Play ();
-        }
 
-		if(Input.GetKeyUp(KeyCode.Mouse0)){
-			jumpTimeCounter = 0;
-			stoppedJumping = true;
-		}
-		if(grounded){
-			jumpTimeCounter = jumpTime;
-			canDoubleJump = true;
-		}
-		if(Input.GetKey (KeyCode.Mouse0) && !stoppedJumping){
-			if(jumpTimeCounter > 0){
+			if (Input.GetMouseButtonDown(0) && (grounded || canDoubleJump))
+			{
 				myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
-				jumpTimeCounter -= Time.deltaTime;
+				stoppedJumping = false;
+				if(!grounded && canDoubleJump){
+					myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce*1.5f);
+					stoppedJumping = false;
+					canDoubleJump = false;
+				}
+				jumpSound.Play ();
 			}
-		}
 
+			if(Input.GetKeyUp(KeyCode.Mouse0)){
+				jumpTimeCounter = 0;
+				stoppedJumping = true;
+			}
+			if(grounded){
+				jumpTimeCounter = jumpTime;
+				canDoubleJump = true;
+			}
+			if(Input.GetKey (KeyCode.Mouse0) && !stoppedJumping){
+				if(jumpTimeCounter > 0){
+					myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
+					jumpTimeCounter -= Time.deltaTime;
+				}
+			}
+        
         myAnimator.SetFloat("Speed", moveSpeed);
-        myAnimator.SetBool("Grounded", grounded);
+		myAnimator.SetBool("Grounded", grounded);
+		myAnimator.SetFloat("Jump Time", jumpTime);
+		myAnimator.SetBool("Dead", dead);
     }
 
 	void OnCollisionEnter2D ( Collision2D other){
@@ -100,6 +104,7 @@ public class PlayerController : MonoBehaviour {
 			moveSpeed = moveSpeedStore;
 			speedIncreaseMilestone = speedIncreaseMilestoneStore;
 			speedMilestoneCount = speedMilestoneCountStore;
+			dead = true;
 			deathSound.Play ();
 		}
 	}

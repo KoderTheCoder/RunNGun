@@ -28,6 +28,9 @@ public class PlatformCreator : MonoBehaviour {
 	public float randomSpikeThreshold;
 	public ObjectPooler theSpikePool;
 
+	public float randomTurretThreshold;
+	public ObjectPooler theTurretPool;
+
 	public float powerupHeight;
 	public ObjectPooler powerupPool;
 	public float powerupThreshold;
@@ -78,7 +81,7 @@ public class PlatformCreator : MonoBehaviour {
 				theCoinGenerator.SpawnCoins (new Vector3(transform.position.x, transform.position.y+1f,transform.position.z));
 			}
 			if(Random.Range(0, 100) < randomSpikeThreshold){
-				GameObject newSpike = theSpikePool.GetPooledObject ();
+				GameObject newSpike = theTurretPool.GetPooledObject ();
 
 				float spikeXPosition = Random.Range (-platformWidths [platformSelector] / 2 + 1f, platformWidths [platformSelector] / 2 - 1f);
 
