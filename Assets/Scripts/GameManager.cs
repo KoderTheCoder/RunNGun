@@ -9,13 +9,14 @@ public class GameManager : MonoBehaviour {
 	public PlayerController thePlayer;
 	private Vector3 playerStartPoint;
 	private ScoreManager theScoreManager;
-
+	public int spawnLevel;
 	private PlatformDestroyer[] platformList;
 
 	public DeathMenu theDeathScreen;
 	public bool powerupReset;
 	// Use this for initialization
 	void Start () {
+		spawnLevel = 1;
 		platformStartPoint = platformGenerator.position;
 		playerStartPoint = thePlayer.transform.position;
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void restartGame(){
+		spawnLevel = 1;
 		theScoreManager.scoreIncreasing = false;
 		thePlayer.gameObject.SetActive (false);
 		theDeathScreen.gameObject.SetActive (true);
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Reset (){
+		spawnLevel = 1;
 		powerupReset = true;
 		theDeathScreen.gameObject.SetActive (false);
 		platformList = FindObjectsOfType<PlatformDestroyer> ();

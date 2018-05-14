@@ -31,9 +31,14 @@ public class PlatformCreator : MonoBehaviour {
 	public float randomTurretThreshold;
 	public ObjectPooler theTurretPool;
 
+	public float randomZombieThreshold;
+	public ObjectPooler theZombiePool;
+
 	public float powerupHeight;
 	public ObjectPooler powerupPool;
 	public float powerupThreshold;
+
+	public GameManager theGameManager;
 
 	// Use this for initialization
 	void Start () {
@@ -81,15 +86,42 @@ public class PlatformCreator : MonoBehaviour {
 				theCoinGenerator.SpawnCoins (new Vector3(transform.position.x, transform.position.y+1f,transform.position.z));
 			}
 			if(Random.Range(0, 100) < randomSpikeThreshold){
-				GameObject newSpike = theTurretPool.GetPooledObject ();
+				GameObject newEnemy;
+				if(theGameManager.spawnLevel <= 4){
+					newEnemy = theZombiePool.GetPooledObject ();
+				}else if(theGameManager.spawnLevel < 9){
+					if(Random.Range(0, 100) < 50){
+						print ("true < 50");
+						newEnemy = theTurretPool.GetPooledObject ();
+					}else{
+						newEnemy = theZombiePool.GetPooledObject ();
+					}
+				}else{
+					newEnemy = theTurretPool.GetPooledObject ();
+				}
 
-				float spikeXPosition = Random.Range (-platformWidths [platformSelector] / 2 + 1f, platformWidths [platformSelector] / 2 - 1f);
+				float spikeXPosition;
 
-				Vector3 spikePosition = new Vector3 (spikeXPosition, 0.5f, 0f);
+				if(newEnemy.gameObject.name == "Turret" || newEnemy.gameObject.name == "Turret(Clone)"){
+					spikeXPosition = (platformWidths [platformSelector] / 2 - 1f);
+				}else{
+					spikeXPosition = Random.Range (-platformWidths [platformSelector] / 2 + 1f, platformWidths [platformSelector] / 2 - 1f);
+				}
 
-				newSpike.transform.position = transform.position + spikePosition;
-				newSpike.transform.rotation = transform.rotation;
-				newSpike.SetActive(true);
+				Vector3 enemyPosition = new Vector3 (spikeXPosition, 0.5f, 0f);
+
+				newEnemy.transform.position = transform.position + enemyPosition;
+				newEnemy.transform.rotation = transform.rotation;
+
+
+				//reset turret variables
+				if(newEnemy.gameObject.name == "Zombie(Clone)" || newEnemy.gameObject.name == "Zombie"){
+					newEnemy.gameObject.GetComponent<ZombieController> ().reset ();
+				}
+				newEnemy.gameObject.GetComponent<turretController> ().reset ();
+				newEnemy.gameObject.GetComponent<BoxCollider2D> ().enabled = true;
+				newEnemy.SetActive(true);
+				newEnemy.gameObject.GetComponent<Animator> ().SetBool ("Dead", false);
 			}
 
 			if(Random.Range(0, 100) < powerupThreshold){
