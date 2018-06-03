@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 	public AudioSource jumpSound;
 	public AudioSource deathSound;
 
+	public GameObject jetpack;
 
 	public ObjectPooler laserPool;
 
@@ -78,25 +79,32 @@ public class PlayerController : MonoBehaviour {
 				myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
 				stoppedJumping = false;
 				if(!grounded && canDoubleJump){
-					myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce*1.5f);
+					myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce*1.4f);
 					stoppedJumping = false;
 					canDoubleJump = false;
 				}
 				jumpSound.Play ();
+			}else if(Input.GetKey (KeyCode.Mouse0) && !grounded && myRigidbody.velocity.y < 0){
+				myRigidbody.AddForce (new Vector2 (0, 30));
+				jetpack.SetActive (true);
 			}
 
 			if(Input.GetKeyUp(KeyCode.Mouse0)){
 				jumpTimeCounter = 0;
 				stoppedJumping = true;
+				jetpack.SetActive (false);
 			}
 			if(grounded){
 				jumpTimeCounter = jumpTime;
 				canDoubleJump = true;
+				jetpack.SetActive (false);
 			}
 			if(Input.GetKey (KeyCode.Mouse0) && !stoppedJumping){
+				
 				if(jumpTimeCounter > 0){
 					myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
 					jumpTimeCounter -= Time.deltaTime;
+					jetpack.SetActive (true);
 				}
 			}
 		}
@@ -108,6 +116,7 @@ public class PlayerController : MonoBehaviour {
         myAnimator.SetFloat("Speed", moveSpeed);
 		myAnimator.SetBool("Grounded", grounded);
 		myAnimator.SetBool("Dead", dead);
+
     }
 
 	void OnCollisionEnter2D ( Collision2D other){

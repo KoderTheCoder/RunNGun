@@ -55,6 +55,8 @@
      <Compile Include="Assets\Scripts\bulletController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\CoinGenerator.cs" />
+     <Compile Include="Assets\Scripts\ComicController.cs" />
+     <Compile Include="Assets\Scripts\ComicMenu.cs" />
      <Compile Include="Assets\Scripts\DeathMenu.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />

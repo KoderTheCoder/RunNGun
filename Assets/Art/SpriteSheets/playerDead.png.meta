@@ -19,6 +19,7 @@ TextureImporter:
     21300024: playerDead_12
     21300026: playerDead_13
     21300028: playerDead_14
+    21300030: null
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -308,6 +309,20 @@ TextureImporter:
         y: 0
         width: 166
         height: 87
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: null
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 927
+        width: 108
+        height: 104
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -12,9 +12,11 @@ public class Background : MonoBehaviour {
 	}
 
 	void Update () {
-		float y = Mathf.Repeat (Time.time * scrollSpeed, 1);
-		savedOffset = new Vector2 (Time.time * scrollSpeed, 0);
-		GetComponent<Renderer> ().material.mainTextureOffset = savedOffset;
+		if(GameObject.Find("Player") != null){
+			float y = Mathf.Repeat (Time.time * scrollSpeed, 1);
+			savedOffset = new Vector2 (Time.time * scrollSpeed, 0);
+			GetComponent<Renderer> ().material.mainTextureOffset = savedOffset;
+		}
 	}
 
 	void OnDisable () {

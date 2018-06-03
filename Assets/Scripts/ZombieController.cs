@@ -15,6 +15,9 @@ public class ZombieController : MonoBehaviour {
 	Rigidbody2D rb;
 	Animator zombieAnimator;
 	bool playedSound;
+	public GameObject bloodSplat;
+	float boundryTimer;
+	float timeSinceLastBoundryHit;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -24,14 +27,23 @@ public class ZombieController : MonoBehaviour {
 		timeSinceLastChange = 0;
 		moving = false;
 		playedSound = false;
+
+		//dodgy bug fix
+		boundryTimer = 1;
+		timeSinceLastBoundryHit = 0;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		if(!dead){
 			if(transform.position.x < leftBoundry || transform.position.x > rightBoundry){
-				walk ();
-				print (leftBoundry.ToString() + " " + rightBoundry.ToString());
+				if(boundryTimer > timeSinceLastBoundryHit){
+					walk ();
+					print (leftBoundry.ToString() + " " + rightBoundry.ToString());
+					timeSinceLastBoundryHit = 0;
+				}else{
+					timeSinceLastBoundryHit += Time.deltaTime;
+				}
 			}
 			if(timeSinceLastChange > waitTime){
 				if(moving){
@@ -56,6 +68,7 @@ public class ZombieController : MonoBehaviour {
 		}else if(!playedSound){
 			GetComponent<AudioSource> ().Play ();
 			playedSound = true;
+			bloodSplat.SetActive (true);
 		}
 	}
 
@@ -87,6 +100,7 @@ public class ZombieController : MonoBehaviour {
 		timeSinceLastChange = 0;
 		moving = false;
 		dead = false;
+		bloodSplat.SetActive (false);
 	}
 
 }

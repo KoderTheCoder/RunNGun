@@ -14,7 +14,7 @@ public class turretController : MonoBehaviour {
 	void Start () {
 		playedDeathSound = false;
 		dead = false;
-		shotFrequency = 2;
+		shotFrequency = 3;
 		timeSinceLastShot = shotFrequency;
 		laserShot = GetComponent<AudioSource> ();
 		theLaserPool = GameObject.Find ("LaserPool").GetComponent<ObjectPooler>();
