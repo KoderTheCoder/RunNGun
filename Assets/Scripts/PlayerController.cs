@@ -32,8 +32,9 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D myRigidbody;
 
     private Animator myAnimator;
+    public Animation anim;
 
-	public GameManager theGameManager;
+    public GameManager theGameManager;
 
 	public AudioSource jumpSound;
 	public AudioSource deathSound;
@@ -72,6 +73,11 @@ public class PlayerController : MonoBehaviour {
 				speedMilestoneCount += speedIncreaseMilestone;
 				moveSpeed = moveSpeed * speedMultiplier;
 				speedIncreaseMilestone = speedIncreaseMilestone*speedMultiplier;
+                if(myAnimator.speed < 2)
+                {
+                    myAnimator.speed += 0.15f;
+                }
+                
 			}
 		if(((Input.mousePosition.x > 200 || Input.mousePosition.y > 200) || Input.touches.Length > 1) && (Input.mousePosition.x > 200 || Input.mousePosition.y < 900)){
 			if (Input.GetMouseButtonDown(0) && (grounded || canDoubleJump))
@@ -127,7 +133,20 @@ public class PlayerController : MonoBehaviour {
 			speedMilestoneCount = speedMilestoneCountStore;
 			dead = true;
 			deathSound.Play ();
-		}
+            int unlock = 10000;
+            for (int i = 0; i < 8; ++i)
+            {
+                if (PlayerPrefs.GetInt("TotalScore") > unlock)
+                {
+                    PlayerPrefs.SetInt("Chapter" + (i + 1).ToString(), 1);
+                    unlock = (int)((float)unlock * 1.5f);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
 	}
 
 	public void shoot(){

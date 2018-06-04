@@ -1962,6 +1962,7 @@ MonoBehaviour:
     m_Bits: 256
   groundCheck: {fileID: 1227643516}
   groundCheckRadius: 0.1
+  anim: {fileID: 0}
   theGameManager: {fileID: 1478966734}
   jumpSound: {fileID: 108077097}
   deathSound: {fileID: 1946279013}

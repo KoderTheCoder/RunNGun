@@ -27,12 +27,16 @@ public class ScoreManager : MonoBehaviour {
 	void Update () {
 		if(scoreIncreasing){
 			scoreCount += pointsPerSecond * Time.deltaTime;
+            PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + (int)(pointsPerSecond * Time.deltaTime));
+            
 		}
 
 		if(scoreCount > hiScoreCount){
 			hiScoreCount = scoreCount;
 			PlayerPrefs.SetFloat ("HighScore", hiScoreCount);
 		}
+
+        
 
 		scoreText.text = "Score: " + (int)scoreCount;
 		hiScoreText.text = "High Score: " + (int)hiScoreCount;

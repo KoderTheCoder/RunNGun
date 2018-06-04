@@ -24,21 +24,26 @@ public class MainMenu : MonoBehaviour {
             {
                 PlayerPrefs.SetInt("Chapter" + (i + 1), 0);
             }
-            if (!PlayerPrefs.HasKey("Bubble"))
-            {
-                PlayerPrefs.SetInt("Bubble", 0);
-                PlayerPrefs.SetInt("BubbleEquipped", 0);
-            }
-            if (!PlayerPrefs.HasKey("Rocket"))
-            {
-                PlayerPrefs.SetInt("Rocket", 0);
-                PlayerPrefs.SetInt("RocketEquipped", 0);
-            }
-            if (!PlayerPrefs.HasKey("JetBurner"))
-            {
-                PlayerPrefs.SetInt("JetBurner", 0);
-                PlayerPrefs.SetInt("JetBurnerEquipped", 0);
-            }
+        }
+        if (!PlayerPrefs.HasKey("Bubble"))
+        {
+            PlayerPrefs.SetInt("Bubble", 0);
+            PlayerPrefs.SetInt("BubbleEquipped", 0);
+        }
+        if (!PlayerPrefs.HasKey("Rocket"))
+        {
+            PlayerPrefs.SetInt("Rocket", 0);
+            PlayerPrefs.SetInt("RocketEquipped", 0);
+        }
+        if (!PlayerPrefs.HasKey("JetBurner"))
+        {
+            PlayerPrefs.SetInt("JetBurner", 0);
+            PlayerPrefs.SetInt("JetBurnerEquipped", 0);
+        }
+
+        if (!PlayerPrefs.HasKey("TotalScore"))
+        {
+            PlayerPrefs.SetInt("TotalScore", 0);
         }
 
     }

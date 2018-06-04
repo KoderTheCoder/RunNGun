@@ -37,10 +37,12 @@ public class ComicMenu : MonoBehaviour {
 
     public void LoadChapter()
     {
-        backButton.SetActive(false);
-        storyBoard.SetActive(true);
-        print("adsad");
-        comicPage.sprite = spr[0];
-        
+        if(PlayerPrefs.GetInt(gameObject.name) == 1)
+        {
+            backButton.SetActive(false);
+            storyBoard.SetActive(true);
+            print("adsad");
+            comicPage.sprite = spr[0];
+        }
     }
 }
