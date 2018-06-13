@@ -25,25 +25,30 @@ public class MainMenu : MonoBehaviour {
                 PlayerPrefs.SetInt("Chapter" + (i + 1), 0);
             }
         }
-        if (!PlayerPrefs.HasKey("Bubble"))
+        if (!PlayerPrefs.HasKey("Elixir of Iron"))
         {
-            PlayerPrefs.SetInt("Bubble", 0);
-            PlayerPrefs.SetInt("BubbleEquipped", 0);
+            PlayerPrefs.SetInt("Elixir of Iron", 0);
+            PlayerPrefs.SetInt("Elixir of Iron Equipped", 0);
         }
-        if (!PlayerPrefs.HasKey("Rocket"))
+        if (!PlayerPrefs.HasKey("Plasma Gun"))
         {
-            PlayerPrefs.SetInt("Rocket", 0);
-            PlayerPrefs.SetInt("RocketEquipped", 0);
+            PlayerPrefs.SetInt("Plasma Gun", 0);
+            PlayerPrefs.SetInt("Plasma Gun Equipped", 0);
         }
-        if (!PlayerPrefs.HasKey("JetBurner"))
+        if (!PlayerPrefs.HasKey("Super Suit"))
         {
-            PlayerPrefs.SetInt("JetBurner", 0);
-            PlayerPrefs.SetInt("JetBurnerEquipped", 0);
+            PlayerPrefs.SetInt("Super Suit", 0);
+            PlayerPrefs.SetInt("Super Suit Equipped", 0);
         }
 
         if (!PlayerPrefs.HasKey("TotalScore"))
         {
             PlayerPrefs.SetInt("TotalScore", 0);
+        }
+
+        if (!PlayerPrefs.HasKey("TechTrash"))
+        {
+            PlayerPrefs.SetInt("TechTrash", 0);
         }
 
     }
@@ -52,10 +57,15 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void Story(){
-			Application.LoadLevel (storyScene);
+		Application.LoadLevel (storyScene);
 	}
 
-	public void muteSound(){
+    public void Inventory()
+    {
+        Application.LoadLevel("Inventory");
+    }
+
+    public void muteSound(){
 		if(PlayerPrefs.GetString("Sound") == "off"){
 			PlayerPrefs.SetString ("Sound", "on");
 			mute.sprite = soundImage;

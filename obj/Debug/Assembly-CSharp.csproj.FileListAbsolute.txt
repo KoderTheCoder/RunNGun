@@ -66,3 +66,4 @@ C:\Users\Koder\Desktop\Unity\Run 'n Gun\Temp\bin\Debug\UnityEditor.iOS.Extension
 C:\Users\Koder\Desktop\Unity\Run 'n Gun\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\Koder\Desktop\Unity\Run 'n Gun\obj\Debug\Assembly-CSharp.dll
 C:\Users\Koder\Desktop\Unity\Run 'n Gun\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Koder\Desktop\Unity\Run 'n Gun\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

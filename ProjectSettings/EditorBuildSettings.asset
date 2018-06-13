@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 39330ab25e7decf49ba52b1bd951426d
   - enabled: 1
     path: Assets/Scenes/Inventory.unity
-    guid: a2f2ae097c5d07b4caa35a772c1aa306
+    guid: f5dd5bddb1d510145b7067bf2f3e74b1
   - enabled: 1
     path: Assets/Scenes/Story.unity
     guid: b8f4cf3817ff8804693c662cfdd19194

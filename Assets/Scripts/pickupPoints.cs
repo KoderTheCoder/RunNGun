@@ -26,6 +26,7 @@ public class pickupPoints : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other){
 		if(other.gameObject.tag == "Player"){
 			theScoreManager.AddScore (scoreToGive);
+            theScoreManager.AddToTechTrash();
 
 			gameObject.SetActive (false);
 

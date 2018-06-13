@@ -59,10 +59,12 @@
      <Compile Include="Assets\Scripts\ComicMenu.cs" />
      <Compile Include="Assets\Scripts\DeathMenu.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\ItemsMenu.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\ObjectPooler.cs" />
      <Compile Include="Assets\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\pickupPoints.cs" />
+     <Compile Include="Assets\Scripts\PlasmaController.cs" />
      <Compile Include="Assets\Scripts\PlatformCreator.cs" />
      <Compile Include="Assets\Scripts\PlatformDestroyer.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
