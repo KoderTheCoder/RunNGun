@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     public int elixirPoints = 0;
     public Image armourImage;
     public Sprite[] shieldSprites;
-
+    public GameObject topBlock;
 
 	// Use this for initialization
 	void Start () {
@@ -82,6 +82,14 @@ public class PlayerController : MonoBehaviour {
 		moveSpeedStore = moveSpeed;
 		speedIncreaseMilestoneStore = speedIncreaseMilestone;
 		speedMilestoneCountStore = speedMilestoneCount;
+
+        if (PlayerPrefs.GetInt("Super Suit Equipped") == 1)
+        {
+            myAnimator.runtimeAnimatorController = Resources.Load("SuperSuit") as RuntimeAnimatorController;
+            shotFrequency = 0.1f;
+            myRigidbody.gravityScale = 3;
+            topBlock.SetActive(true);
+        }
 	}
 	
 	// Update is called once per frame
@@ -120,22 +128,39 @@ public class PlayerController : MonoBehaviour {
 
 			if(Input.GetKeyUp(KeyCode.Mouse0)){
 				jumpTimeCounter = 0;
-				stoppedJumping = true;
+                stoppedJumping = true;
+                
 				jetpack.SetActive (false);
 			}
 			if(grounded){
 				jumpTimeCounter = jumpTime;
-				canDoubleJump = true;
+                if (PlayerPrefs.GetInt("Super Suit Equipped") == 0)
+                {
+                    canDoubleJump = true;
+                }
 				jetpack.SetActive (false);
 			}
 			if(Input.GetKey (KeyCode.Mouse0) && !stoppedJumping){
 				
 				if(jumpTimeCounter > 0){
 					myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
-					jumpTimeCounter -= Time.deltaTime;
+                    if (PlayerPrefs.GetInt("Super Suit Equipped") == 0)
+                    {
+                        jumpTimeCounter -= Time.deltaTime;
+                    }
+                    
 					jetpack.SetActive (true);
 				}
-			}
+            }else if(Input.GetKey(KeyCode.Mouse0) && stoppedJumping && PlayerPrefs.GetInt("Super Suit Equipped") == 1)
+            {
+                myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce*0.5f);
+                if (PlayerPrefs.GetInt("Super Suit Equipped") == 0)
+                {
+                    jumpTimeCounter -= Time.deltaTime;
+                }
+
+                jetpack.SetActive(true);
+            }
 		}
 
 		if(Input.GetKey (KeyCode.Space)){

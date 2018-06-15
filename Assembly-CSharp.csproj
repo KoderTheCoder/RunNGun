@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Auto Letterbox\ForceCameraRatio.cs" />
      <Compile Include="Assets\Scripts\Background.cs" />
      <Compile Include="Assets\Scripts\bulletController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
@@ -71,6 +72,7 @@
      <Compile Include="Assets\Scripts\PowerupManager.cs" />
      <Compile Include="Assets\Scripts\PowerUps.cs" />
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\ScreenAdjust.cs" />
      <Compile Include="Assets\Scripts\turretController.cs" />
      <Compile Include="Assets\Scripts\ZombieController.cs" />
  <Reference Include="UnityEngine.UI">

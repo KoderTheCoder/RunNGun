@@ -16,11 +16,13 @@ public class ItemsMenu : MonoBehaviour {
     public AudioSource purchased;
     public AudioSource gunEquipped;
     public AudioSource elixirEquipped;
+    public AudioSource suitEquipped;
     string currentEquipped;
     int currentItem;
 
 	// Use this for initialization
 	void Start () {
+
         //PlayerPrefs.SetInt("TechTrash", 100000);
         //PlayerPrefs.SetInt("Plasma Gun", 0);
         //PlayerPrefs.SetInt("Elixir of Iron", 0);
@@ -84,6 +86,9 @@ public class ItemsMenu : MonoBehaviour {
                 }else if(itemImages[currentItem].name == "Elixir of Iron")
                 {
                     elixirEquipped.Play();
+                }else if (itemImages[currentItem].name == "Super Suit")
+                {
+                    suitEquipped.Play();
                 }
                 
             }

@@ -33,9 +33,20 @@ public class bulletController : MonoBehaviour {
 			if (other.tag == "Player")
 			{
 				if(!other.GetComponent<PlayerController> ().dead){
-					theGameManager.restartGame ();
-					other.GetComponent<PlayerController> ().dead = true;
-					other.GetComponent<PlayerController> ().deathSound.Play();
+                    if (other.GetComponent<PlayerController>().elixirPoints < 1)
+                    {
+                        theGameManager.restartGame();
+                        other.GetComponent<PlayerController>().dead = true;
+                        other.GetComponent<PlayerController>().deathSound.Play();
+                    }
+                    else
+                    {
+                        other.GetComponent<PlayerController>().elixirPoints -= 1;
+                        other.GetComponent<PlayerController>().armourImage.sprite = other.GetComponent<PlayerController>().shieldSprites[3 - other.GetComponent<PlayerController>().elixirPoints];
+                        other.GetComponent<PlayerController>().armourDamage.Play();
+                        gameObject.SetActive(false);
+                    }
+                    
 				}
 			}
 		}
