@@ -12,14 +12,18 @@ public class PlasmaController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        rb.velocity = new Vector2(15, 0);
+    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.name == "laserShot(Clone)")
         {
             col.gameObject.SetActive(false);
+        }
+        else if(col.gameObject.CompareTag("BulletCatcher"))
+        {
+            gameObject.SetActive(false);
         }
     }
 }

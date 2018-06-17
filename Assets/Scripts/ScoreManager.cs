@@ -27,9 +27,9 @@ public class ScoreManager : MonoBehaviour {
 	void Update () {
 		if(scoreIncreasing){
 			scoreCount += pointsPerSecond * Time.deltaTime;
-            
-            
-		}
+            PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore")+ (int)(pointsPerSecond * Time.deltaTime));
+
+        }
 
 		if(scoreCount > hiScoreCount){
 			hiScoreCount = scoreCount;
@@ -52,7 +52,9 @@ public class ScoreManager : MonoBehaviour {
 	public void AddScore(int pointsToAdd){
 		if(shouldDouble){
 			pointsToAdd = pointsToAdd * 2;
-		}
-		scoreCount += pointsToAdd;
+            
+        }
+        PlayerPrefs.SetInt("TotalScore", PlayerPrefs.GetInt("TotalScore") + (int)(pointsToAdd));
+        scoreCount += pointsToAdd;
 	}
 }

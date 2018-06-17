@@ -23,13 +23,20 @@ public class bulletController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
+        print("Entered");
 		if(gameObject.name == "heroLaser" || gameObject.name == "heroLaser(Clone)"){
 			if (other.tag == "enemy")
 			{
 				print ("true");
 				kill (other);
 			}
-		}else{
+            else if (other.CompareTag("BulletCatcher"))
+            {
+                print("hit bullet catcher");
+                gameObject.SetActive(false);
+            }
+        }
+        else {
 			if (other.tag == "Player")
 			{
 				if(!other.GetComponent<PlayerController> ().dead){

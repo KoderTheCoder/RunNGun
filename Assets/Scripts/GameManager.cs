@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 
 	public DeathMenu theDeathScreen;
 	public bool powerupReset;
+
+    public static Sprite[] chapterSprites;
 	// Use this for initialization
 	void Start () {
         

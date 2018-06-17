@@ -42,8 +42,9 @@ public class PlayerController : MonoBehaviour {
     public AudioSource plasmaShot;
     public AudioSource armourDamage;
 	public GameObject jetpack;
+    public GameObject muzzleFlash;
 
-	public ObjectPooler laserPool;
+    public ObjectPooler laserPool;
     public ObjectPooler plasmaPool;
 
     float timeSinceLastShot;
@@ -90,6 +91,11 @@ public class PlayerController : MonoBehaviour {
             myRigidbody.gravityScale = 3;
             topBlock.SetActive(true);
         }
+        else
+        {
+            muzzleFlash.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+            muzzleFlash.transform.position = new Vector3(muzzleFlash.transform.position.x, muzzleFlash.transform.position.y - 0.1f, muzzleFlash.transform.position.z);
+        }
 	}
 	
 	// Update is called once per frame
@@ -110,7 +116,7 @@ public class PlayerController : MonoBehaviour {
                 }
                 
 			}
-        if (((Input.mousePosition.x < 1800 || Input.mousePosition.y > 180) || Input.touchCount > 1) && (Input.mousePosition.x > 200 || Input.mousePosition.y < 900)){
+        if (((Input.mousePosition.x < Screen.width/2) || Input.touchCount > 1) && (Input.mousePosition.x > Screen.width/11 || Input.mousePosition.y < Screen.height/1.2f)){
 			if (Input.GetMouseButtonDown(0) && (grounded || canDoubleJump))
 			{
 				myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, jumpForce);
@@ -161,16 +167,25 @@ public class PlayerController : MonoBehaviour {
 
                 jetpack.SetActive(true);
             }
-		}
+        }
+        else if(Input.mousePosition.y > Screen.height/12 && Input.GetKey(KeyCode.Mouse0))
+        {
+            shoot();
+        }
 
-		if(Input.GetKey (KeyCode.Space)){
+		if(Input.GetKey (KeyCode.Space))
+        {
 			shoot ();
 		}
 		timeSinceLastShot += Time.deltaTime;
         timeSinceLastPlasmaShot += Time.deltaTime;
-        myAnimator.SetFloat("Speed", moveSpeed);
-		myAnimator.SetBool("Grounded", grounded);
-		myAnimator.SetBool("Dead", dead);
+        if(PlayerPrefs.GetInt("Super Suit Equipped") == 0)
+        {
+            myAnimator.SetFloat("Speed", moveSpeed);
+            myAnimator.SetBool("Grounded", grounded);
+            myAnimator.SetBool("Dead", dead);
+        }
+        
 
     }
 
@@ -185,6 +200,7 @@ public class PlayerController : MonoBehaviour {
                 dead = true;
                 deathSound.Play();
                 int unlock = 10000;
+                print("Total score: " + PlayerPrefs.GetInt("TotalScore").ToString());
                 for (int i = 0; i < 8; ++i)
                 {
                     if (PlayerPrefs.GetInt("TotalScore") > unlock)
@@ -242,13 +258,29 @@ public class PlayerController : MonoBehaviour {
     public void shoot(){
 		if (timeSinceLastShot >= shotFrequency) {
 			GameObject laser = laserPool.GetPooledObject ();
-			laser.transform.position = new Vector3 (transform.position.x+1.5f, transform.position.y + 0.5f, transform.position.z);
+            if(PlayerPrefs.GetInt("Super Suit Equipped") == 1)
+            {
+                laser.transform.position = new Vector3(transform.position.x + 1.5f, transform.position.y + 1f, transform.position.z);
+            }
+            else
+            {
+                laser.transform.position = new Vector3(transform.position.x + 1.5f, transform.position.y + 0.5f, transform.position.z);
+            }
 			laser.transform.rotation = transform.rotation;
 			laser.SetActive (true);
 			GetComponent<AudioSource> ().Play ();
+            StartCoroutine(MuzzleFlash());
+            MuzzleFlash();
 			timeSinceLastShot = 0;
 		}
 	}
+
+    IEnumerator MuzzleFlash()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(shotFrequency*0.7f);
+        muzzleFlash.SetActive(false);
+    }
 
     IEnumerator TimerCountdown()
     {

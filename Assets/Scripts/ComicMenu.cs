@@ -21,12 +21,12 @@ public class ComicMenu : MonoBehaviour {
 
     public void NextPage()
     {
-        comicPage.sprite = spr[1];
+        comicPage.sprite = GameManager.chapterSprites[1];
     }
 
     public void PreviousPage()
     {
-        comicPage.sprite = spr[0];
+        comicPage.sprite = GameManager.chapterSprites[0];
     }
 
     public void ComicExit()
@@ -43,6 +43,7 @@ public class ComicMenu : MonoBehaviour {
             storyBoard.SetActive(true);
             print("adsad");
             comicPage.sprite = spr[0];
+            GameManager.chapterSprites = spr;
         }
     }
 }
