@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour {
 	private ScoreManager theScoreManager;
 	public int spawnLevel;
 	private PlatformDestroyer[] platformList;
+    public Text newHighScore;
 
 	public DeathMenu theDeathScreen;
 	public bool powerupReset;
@@ -36,6 +38,13 @@ public class GameManager : MonoBehaviour {
 		spawnLevel = 1;
 		theScoreManager.scoreIncreasing = false;
 		thePlayer.gameObject.SetActive (false);
+        if(PlayerPrefs.GetInt("NewHighScore") == 1)
+        {
+            print(PlayerPrefs.GetFloat("HighScore").ToString());
+            newHighScore.text = "NEW HIGH SCORE: " + ((int)PlayerPrefs.GetFloat("HighScore")).ToString();
+            PlayerPrefs.SetInt("NewHighScore", 0);
+            newHighScore.gameObject.SetActive(true);
+        }
 		theDeathScreen.gameObject.SetActive (true);
 		//StartCoroutine ("RestartGameCo");
 	}
@@ -43,7 +52,8 @@ public class GameManager : MonoBehaviour {
 	public void Reset (){
 		spawnLevel = 1;
 		powerupReset = true;
-		theDeathScreen.gameObject.SetActive (false);
+        newHighScore.gameObject.SetActive(false);
+        theDeathScreen.gameObject.SetActive (false);
 		platformList = FindObjectsOfType<PlatformDestroyer> ();
 		for(int i = 0; i < platformList.Length; ++i){
 			platformList [i].gameObject.SetActive (false);
@@ -55,7 +65,7 @@ public class GameManager : MonoBehaviour {
             thePlayer.armourImage.sprite = thePlayer.shieldSprites[0];
             thePlayer.armourImage.gameObject.SetActive(true);
         }
-        thePlayer.elixirPoints = 0;
+        thePlayer.elixirPoints = 3;
         thePlayer.myAnimator.speed = 1;
 		thePlayer.transform.position = playerStartPoint;
 		thePlayer.dead = false;

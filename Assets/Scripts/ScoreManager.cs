@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour {
 	public bool shouldDouble;
 	// Use this for initialization
 	void Start () {
-		if(PlayerPrefs.HasKey("HighScore")){
+        if (PlayerPrefs.HasKey("HighScore")){
 			hiScoreCount = PlayerPrefs.GetFloat ("HighScore");
 		}
 		scoreIncreasing = true;
@@ -34,7 +34,8 @@ public class ScoreManager : MonoBehaviour {
 		if(scoreCount > hiScoreCount){
 			hiScoreCount = scoreCount;
 			PlayerPrefs.SetFloat ("HighScore", hiScoreCount);
-		}
+            PlayerPrefs.SetInt("NewHighScore", 1);
+        }
 
 
 
